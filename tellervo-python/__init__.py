@@ -38,17 +38,20 @@ def build_loginrequest(username, client_nonce, server_nonce, bighash, sequence):
 
 class Response(object):
     def __init__(self, http_response):
-        self.content = None
+        self.body = None
         self.status = None
         self.message = None
         self.messagecode = None
-        self.content = objectify.fromstring(http_response.read())
-        self.status = self.content.find('.//{http://www.tellervo.org/schema/1.0}status').text
+        self.body = objectify.fromstring(http_response.read())
+        self.status = self.body.find('.//{http://www.tellervo.org/schema/1.0}status').text
         if self.status != "OK":
-            message_element = self.content.find('.//{http://www.tellervo.org/schema/1.0}message')
+            message_element = self.body.find('.//{http://www.tellervo.org/schema/1.0}message')
             message_text = message_element.text
             message_code = message_element.attrib["code"]
             raise RequestError(message_text, message_code)
+
+    def __str__(self):
+        return repr(self.body)
 
 
 class Connection(object):
@@ -62,7 +65,7 @@ class Connection(object):
         self.login()
 
     def read_record(id, record_type, format="standard"):
-
+        pass
 
     def execute(self, xmlrequest):
         """Package a string XML request and submit it to the server"""
@@ -84,7 +87,7 @@ class Connection(object):
         self.execute(login_request)
 
     def _request_nonce(self):
-        nonce_response = self.execute(build_xmlrequest({'type': 'nonce'})).content
+        nonce_response = self.execute(build_xmlrequest({'type': 'nonce'})).body
         nonce_element = nonce_response.find('.//{http://www.tellervo.org/schema/1.0}nonce')
         server_nonce = nonce_element.text
         nonce_seq = nonce_element.attrib['seq']
