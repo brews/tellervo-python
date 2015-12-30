@@ -2,8 +2,8 @@ import urllib.parse
 import urllib.request
 import http.cookiejar
 from lxml import etree, objectify
-from exception import RequestError
-from utils import generate_nonce, md5hash
+from tellervo.exception import RequestError
+from tellervo.utils import generate_nonce, md5hash
 
 
 def build_basic_element(tag, attributes={}, subelements=[]):
@@ -36,6 +36,7 @@ def build_loginrequest(username, client_nonce, server_nonce, bighash, sequence):
     request = build_xmlrequest({'type': 'securelogin'}, [auth_element])
     return request
 
+
 class Response(object):
     def __init__(self, http_response):
         self.body = None
@@ -55,6 +56,9 @@ class Response(object):
 
 
 class Connection(object):
+    """
+    TESTING 1 2 3 that's all
+    """
     def __init__(self, server_url, username, password):
         self._serverurl = server_url
         self._username = username
