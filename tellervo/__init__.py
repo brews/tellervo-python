@@ -27,6 +27,8 @@ def build_xmlrequest(request_attributes={}, subelements=[]):
     return etree.tostring(root)
 
 def build_loginrequest(username, client_nonce, server_nonce, bighash, sequence):
+    """Build an XML secure login request string
+    """
     login_attributes = {'username': username,
                         'cnonce': client_nonce,
                         'snonce': server_nonce,
@@ -36,6 +38,21 @@ def build_loginrequest(username, client_nonce, server_nonce, bighash, sequence):
     request = build_xmlrequest({'type': 'securelogin'}, [auth_element])
     return request
 
+def build_searchrequest(return_object, search_name, search_operator, search_value, results_format='minimal'):
+    """Build an XML search request string
+    """
+    #TODO: What does 'includeChildren=true' attribute do?
+
+    #TODO: Ensure that return_object is 'element', 'object', or 'series'...?
+    #TODO: Ensure that results_format is 'minimal' or whatever other strings are allowed. Check tellervo manual for this.
+    search_param_attributes = {'name': search_name,
+                               'operator': search_operator,
+                               'value': search_value}
+    param_element = build_basic_element('param', search_param_attributes)
+    searchparams_attributes = {'returnObject' : return_object} 
+    searchparams_element = build_basic_element('searchParams', searchparams_attributes, [param_element])
+    request = build_xmlrequest({'type': 'search', 'format': results_format}, [searchparams_element])
+    return request
 
 class Response(object):
     def __init__(self, http_response):
