@@ -61,11 +61,11 @@ class Response(object):
         self.message = None
         self.messagecode = None
         self.body = objectify.fromstring(http_response.read())
-        self.status = self.body.find('.//{http://www.tellervo.org/schema/1.0}status').text
+        self.status = self.body.xpath('//*[local-name() = "status"]')[0]
         if self.status != "OK":
-            message_element = self.body.find('.//{http://www.tellervo.org/schema/1.0}message')
-            message_text = message_element.text
-            message_code = message_element.attrib["code"]
+            messagexpath_str = '//*[local-name() = "message"]'
+            message_text = self.body.xpath(messagexpath_str)[0]
+            message_code = self.body.xpath(messagexpath_str + '/@code')[0]
             raise RequestError(message_text, message_code)
 
     def __str__(self):
@@ -92,11 +92,12 @@ class Connection(object):
         """Package a string XML request and submit it to the server"""
         request_data = {'xmlrequest': xmlrequest}
         payload = urllib.parse.urlencode(request_data).encode('utf-8')
+        # print(self._urlopener.open(self._serverurl, payload).read()) # DEBUG
         response = Response(self._urlopener.open(self._serverurl, payload))
         return response
 
     def logout(self):
-        return self.execute(build_xmlrequest("logout"))
+        self.execute(build_xmlrequest({'type': 'logout'}))
 
     def login(self):
         server_nonce, nonce_seq = self._request_nonce()
@@ -115,7 +116,7 @@ class Connection(object):
         return (server_nonce, nonce_seq)
 
     def __enter__(self):
-        pass
+        return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         # See https://docs.python.org/3.5/library/stdtypes.html#typecontextmanager
