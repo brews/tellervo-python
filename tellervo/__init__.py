@@ -61,11 +61,14 @@ class Response(object):
         self.message = None
         self.messagecode = None
         self.body = objectify.fromstring(http_response.read())
-        self.status = self.body.xpath('//*[local-name() = "status"]')[0]
+        self.status = self.body.header.status
+        #self.status = self.body.xpath('//*[local-name() = "status"]')[0]
         if self.status != "OK":
-            messagexpath_str = '//*[local-name() = "message"]'
-            message_text = self.body.xpath(messagexpath_str)[0]
-            message_code = self.body.xpath(messagexpath_str + '/@code')[0]
+            # messagexpath_str = '//*[local-name() = "message"]'
+            message_text = self.body.header.message
+            self.body.header.message.get('code')
+            # message_text = self.body.xpath(messagexpath_str)[0]
+            # message_code = self.body.xpath(messagexpath_str + '/@code')[0]
             raise RequestError(message_text, message_code)
 
     def __str__(self):
