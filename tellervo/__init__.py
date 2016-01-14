@@ -92,7 +92,6 @@ class Connection(object):
         """Package a string XML request and submit it to the server"""
         request_data = {'xmlrequest': xmlrequest}
         payload = urllib.parse.urlencode(request_data).encode('utf-8')
-        # print(self._urlopener.open(self._serverurl, payload).read()) # DEBUG
         response = Response(self._urlopener.open(self._serverurl, payload))
         return response
 
@@ -119,5 +118,4 @@ class Connection(object):
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        # See https://docs.python.org/3.5/library/stdtypes.html#typecontextmanager
         self.logout()
