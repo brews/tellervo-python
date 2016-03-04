@@ -1,14 +1,14 @@
+sudo: false
 language: python
-python:
-    - 3.3
-    - 3.4
-    - 3.5
+python: 3.2
 
 env:
   - TOXENV=py33
   - TOXENV=py34
   - TOXENV=py35
 
-install: pip install tox
+install:
+  - pip install tox coverage
 
-script: tox
+script:
+    - tox -e $TOXENV
