@@ -1,5 +1,6 @@
 tellervo-python
 ===============
+.. image:: https://travis-ci.org/brews/tellervo-python.svg?branch=master
 
 Python client to the Tellervo dendrochronology suite.
 
