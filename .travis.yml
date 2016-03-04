@@ -1,14 +1,12 @@
 sudo: false
 language: python
-python: 3.5
-
-env:
-    - TOXENV=py33
-    - TOXENV=py34
-    - TOXENV=py35
-
+python:
+    - "3.3"
+    - "3.4"
+    - "3.5"
+    - "nightly"
 install:
-  - pip install tox coverage
+    - pip install tox coverage
 
 script:
-    - tox -e $TOXENV
+    - python setup.py check -m -r -s
