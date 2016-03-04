@@ -42,14 +42,13 @@ def build_searchrequest(return_object, search_name, search_operator, search_valu
     """Build an XML search request string
     """
     #TODO: What does 'includeChildren=true' attribute do?
-
     #TODO: Ensure that return_object is 'element', 'object', or 'series'...?
     #TODO: Ensure that results_format is 'minimal' or whatever other strings are allowed. Check tellervo manual for this.
     search_param_attributes = {'name': search_name,
                                'operator': search_operator,
                                'value': search_value}
     param_element = build_basic_element('param', search_param_attributes)
-    searchparams_attributes = {'returnObject' : return_object} 
+    searchparams_attributes = {'returnObject' : return_object}
     searchparams_element = build_basic_element('searchParams', searchparams_attributes, [param_element])
     request = build_xmlrequest({'type': 'search', 'format': results_format}, [searchparams_element])
     return request
@@ -62,13 +61,9 @@ class Response(object):
         self.messagecode = None
         self.body = objectify.fromstring(http_response.read())
         self.status = self.body.header.status
-        #self.status = self.body.xpath('//*[local-name() = "status"]')[0]
         if self.status != "OK":
-            # messagexpath_str = '//*[local-name() = "message"]'
             message_text = self.body.header.message
             self.body.header.message.get('code')
-            # message_text = self.body.xpath(messagexpath_str)[0]
-            # message_code = self.body.xpath(messagexpath_str + '/@code')[0]
             raise RequestError(message_text, message_code)
 
     def __str__(self):
