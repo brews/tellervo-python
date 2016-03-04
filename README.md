@@ -5,7 +5,13 @@
 
 Python client to the Tellervo dendrochronology suite.
 
-Note that this software is under development and may eat your pet hamster.
+Note that this software is under development. It may eat your pet hamster.
+
+## Installation
+
+Releases are in the [Python Package Index](https://pypi.python.org/pypi?:action=display&name=tellervo-python). You can install the package with `pip install tellervo-python`. This package requires a copy of Python 3.3 or more recent, so on some linux distros you might need to use `pip3`.
+
+Bleeding-edge development can be found on [Github](https://github.com/brews/tellervo-python), if you like being in the danger zone.
 
 ##Example
 Here is a quick example that queries a Tellervo server for all samples that were sampled after 2015-01-01. The server replies with TRiDaS XML. We gather the fields we want from the XML reply and stick the information into a list of dictionaries.
