@@ -14,7 +14,7 @@ Releases are in the [Python Package Index](https://pypi.python.org/pypi?:action=
 Bleeding-edge development can be found on [Github](https://github.com/brews/tellervo-python), if you like being in the danger zone.
 
 ##Example
-Here is a quick example that queries a Tellervo server for all samples that were collected after 2015-01-01. The server replies with [TRiDaS XML](http://www.tridas.org/). We gather the fields we want from the XML reply and stick the information into a list of dictionaries.
+Here is a quick example that queries a Tellervo server with a search request. The server replies with [TRiDaS XML](http://www.tridas.org/). We gather the fields we want from the XML reply and stick the information into a list of dictionaries.
 
 ```python
 import tellervo as tel
