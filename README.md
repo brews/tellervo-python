@@ -14,7 +14,7 @@ Here is a quick example that queries a Tellervo server for all samples that were
 import tellervo as tel
 
 USERNAME = 'username'
-TARGET_URL = "https://tellervo.example.edu/ourserver/"
+SERVER_URL = "https://tellervo.example.edu/ourserver/"
 # Password is entered when we setup the connection below.
 
 # Build a search query.
@@ -29,7 +29,7 @@ search_query = tel.build_searchrequest(return_object = 'sample',
 # Open connection to Tellervo server, throw our query at it, close connection.
 # Note that using the `with as` statement will close the connection to the
 # server, even if something goes wrong.
-with tel.Connection(TARGET_URL, USERNAME, 'MyPassword!') as con:
+with tel.Connection(SERVER_URL, USERNAME, 'MyPassword!') as con:
     reply = con.execute(search_query)
 
 # Parse TRiDaS XML from server. See `lxml` for details.
