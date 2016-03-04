@@ -6,7 +6,7 @@ python:
     - "3.5"
     - "nightly"
 install:
-    - pip install tox coverage
+    - pip install tox coverage docutils
 
 script:
     - python setup.py check -m -r -s
