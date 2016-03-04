@@ -3,7 +3,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/brews/tellervo-python.svg?branch=master
 )](https://travis-ci.org/brews/tellervo-python)
 
-Python client to the Tellervo dendrochronology suite.
+Python client to the [Tellervo dendrochronology suite](http://tellervo.org/).
 
 Note that this software is under development. It may eat your pet hamster.
 
@@ -14,7 +14,7 @@ Releases are in the [Python Package Index](https://pypi.python.org/pypi?:action=
 Bleeding-edge development can be found on [Github](https://github.com/brews/tellervo-python), if you like being in the danger zone.
 
 ##Example
-Here is a quick example that queries a Tellervo server for all samples that were collected after 2015-01-01. The server replies with TRiDaS XML. We gather the fields we want from the XML reply and stick the information into a list of dictionaries.
+Here is a quick example that queries a Tellervo server for all samples that were collected after 2015-01-01. The server replies with [TRiDaS XML](http://www.tridas.org/). We gather the fields we want from the XML reply and stick the information into a list of dictionaries.
 
 ```python
 import tellervo as tel
@@ -38,7 +38,7 @@ search_query = tel.build_searchrequest(return_object = 'sample',
 with tel.Connection(SERVER_URL, USERNAME, 'MyPassword!') as con:
     reply = con.execute(search_query)
 
-# Parse TRiDaS XML from server. See `lxml` for details.
+# Parse TRiDaS XML from server.
 select_data = []
 for site in reply.body.content.iterchildren():
     sample_dict = {'site_name': site.title.text,
@@ -48,7 +48,9 @@ for site in reply.body.content.iterchildren():
     select_data.append(sample_dict)
 ```
 
-Now we can take our `select_data` list and turn it into a Pandas DataFrame. To top things off, we sort the data by site name, tree name, and sample name.
+For more on parsing the XML replies, see [lxml](http://lxml.de/).
+
+If you want to refine things further, we can easily take our `select_data` list and turn it into a [pandas](http://pandas.pydata.org/) DataFrame. To top things off, we sort the data by site name, tree name, and sample name.
 
 ```python
 import pandas as pd
