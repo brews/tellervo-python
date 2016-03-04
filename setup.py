@@ -21,7 +21,6 @@ setup(
     version='0.0.1',
 
     description='Python client to the Tellervo dendrochronology suite',
-    long_description=long_description,
 
     # The project's main homepage.
     url='https://github.com/brews/tellervo-python',
