@@ -8,7 +8,7 @@ Python client to the Tellervo dendrochronology suite.
 Note that this software is under development and may eat your pet hamster.
 
 ##Example
-Here is a quick example that queries a Tellervo server for all samples that were sampled after 2015-01-01. The server replies with TRiDaS XML. We gather the fields that we want from the XML reply and stick the information into a list of dictionaries. nice Pandas DataFrame. To top things off, 
+Here is a quick example that queries a Tellervo server for all samples that were sampled after 2015-01-01. The server replies with TRiDaS XML. We gather the fields we want from the XML reply and stick the information into a list of dictionaries.
 
 ```python
 import tellervo as tel
@@ -26,7 +26,9 @@ search_query = tel.build_searchrequest(return_object = 'sample',
                                        search_value = '2015-01-01',
                                        results_format = 'comprehensive')
 
-# Open connection to Tellervo server, throw it our query, close connection.
+# Open connection to Tellervo server, throw our query at it, close connection.
+# Note that using the `with as` statement will close the connection to the
+# server, even if something goes wrong.
 with tel.Connection(TARGET_URL, USERNAME, 'MyPassword!') as con:
     reply = con.execute(search_query)
 
