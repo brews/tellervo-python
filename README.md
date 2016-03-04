@@ -27,7 +27,7 @@ search_query = tel.build_searchrequest(return_object = 'sample',
                                        results_format = 'comprehensive')
 
 # Open connection to Tellervo server, throw it our query, close connection.
-with tel.Connection(TARGET_URL, USERNAME, 'mypassword') as con:
+with tel.Connection(TARGET_URL, USERNAME, 'MyPassword!') as con:
     reply = con.execute(search_query)
 
 # Parse TRiDaS XML from server. See `lxml` for details.
