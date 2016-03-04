@@ -50,7 +50,7 @@ for site in reply.body.content.iterchildren():
 
 For more on parsing the XML replies, see [lxml](http://lxml.de/).
 
-If you want to refine things further, we can easily take our `select_data` list and turn it into a [pandas](http://pandas.pydata.org/) DataFrame. To top things off, we sort the data by site name, tree name, and sample name.
+If you want to refine things further, we can easily take our `select_data` list and turn it into a [pandas](http://pandas.pydata.org/) DataFrame. We then sort the data.
 
 ```python
 import pandas as pd
