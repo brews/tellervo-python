@@ -11,7 +11,6 @@ Note that this software is under development and may eat your pet hamster.
 Here is a quick example that queries a Tellervo server for all samples that were sampled after 2015-01-01. The server replies with TRiDaS XML. We gather the fields that we want from the XML reply and stick the information into a list of dictionaries. nice Pandas DataFrame. To top things off, 
 
 ```python
-import pandas as pd
 import tellervo as tel
 
 USERNAME = 'username'
